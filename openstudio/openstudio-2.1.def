@@ -1,0 +1,24 @@
+BootStrap: debootstrap
+OSVersion: trusty
+MirrorURL: http://us.archive.ubuntu.com/ubuntu/
+
+%setup
+	echo "Installing stuff"
+
+%post
+	apt-get update	
+	apt-get install -y libglu1-mesa
+	apt-get install -y libjpeg8
+	apt-get install -y libfreetype6
+	apt-get install -y libdbus-glib-1-2
+	apt-get install -y fontconfig
+	apt-get install -y libsm6
+	apt-get install -y libxi6
+	apt-get install -y language-pack-en
+
+	echo "Hi from inside the container"
+	apt-get install -y wget
+	wget https://github.com/NREL/OpenStudio/releases/download/v2.1.0/OpenStudio-2.1.0.fae436fc10-Linux.deb
+	dpkg -i OpenStudio-2.1.0.fae436fc10-Linux.deb
+	apt-get -f install
+	echo "Completed OpenStudio setup"
